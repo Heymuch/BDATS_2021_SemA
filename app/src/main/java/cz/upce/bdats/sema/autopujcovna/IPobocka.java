@@ -1,5 +1,7 @@
 package cz.upce.bdats.sema.autopujcovna;
 
+import java.util.Iterator;
+
 interface IPobocka {
     // vloží nové auto do seznamu na příslušnou pozici (první, poslední, předchůdce, následník)
     void vlozAuto(Auto auto, EnumPozice pozice);

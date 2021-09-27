@@ -32,7 +32,7 @@ public abstract class Auto {
         return pocetVypujceni;
     }
 
-    public AutoTyp getTyp() {
+    public Typ getTyp() {
         return typ;
     }
 

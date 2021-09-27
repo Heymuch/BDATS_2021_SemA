@@ -1,5 +1,7 @@
 package cz.upce.bdats.sema.autopujcovna;
 
+import java.util.Iterator;
+
 public interface IAutopujcovna {
     // vloží novou pobočku do seznamu na příslušnou pozici (první, poslední, předchůdce, následník)
     void vlozPobocku(IPobocka pobocka, EnumPozice pozice);

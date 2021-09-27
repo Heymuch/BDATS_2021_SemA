@@ -1,18 +1,16 @@
 package cz.upce.bdats.sema.autopujcovna;
 
-public enum Barva {
+public enum IteratorTyp {
     // Prvky
-    CERNA("černá"),
-    BILA("bíla"),
-    CERVENA("červená"),
-    MODRA("modrá"),
-    ZELENA("zelená");
+    POBOCKY("pobočky"),
+    AUTOMOBILY("automobily"),
+    VYPUJCENE_AUTOMOBILY("vypůjčené automobily");
 
     // Atributy
-    private final String nazev;
+    private String nazev;
 
-    // Konstruktor
-    private Barva(String nazev) {
+    // Konstruktory
+    private IteratorTyp(String nazev) {
         this.nazev = nazev;
     }
 
