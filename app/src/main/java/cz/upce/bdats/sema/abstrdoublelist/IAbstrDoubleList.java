@@ -3,43 +3,43 @@ package cz.upce.bdats.sema.abstrdoublelist;
 import java.util.Iterator;
 
 public interface IAbstrDoubleList<T> extends Iterable {
-    // zrušení celého seznamu
+    // M001 zrušení celého seznamu
     void zrus();
-    // test naplněnosti seznamu
+    // M002 test naplněnosti seznamu
     boolean jePrazdny();
 
-    // vložení prvku do seznamu na první místo
+    // M101 vložení prvku do seznamu na první místo
     void vlozPrvni(T data);
-    // vložení prvku do seznamu na poslední místo
+    // M102 vložení prvku do seznamu na poslední místo
     void vlozPosledni(T data);
-    // vložení prvku do seznamu jakožto následníka aktuálního prvku
+    // M103 vložení prvku do seznamu jakožto následníka aktuálního prvku
     void vlozNaslednika(T data) throws Exception;
-    // vložení prvku do seznamu jakožto předchůdce aktuálního prvku
+    // M104 vložení prvku do seznamu jakožto předchůdce aktuálního prvku
     void vlozPredchudce(T data) throws Exception;
 
     // Operace zpřístupnění mění pozici aktuálního prvku
-    // zpřístupnení aktuálního prvku seznamu
+    // M201 zpřístupnení aktuálního prvku seznamu
     T zpristupniAktualni() throws Exception;
-    // zpristupneni prvního prvku seznamu
+    // M202 zpristupneni prvního prvku seznamu
     T zpristupniPrvni() throws Exception;
-    // zpřístupnění posledního prvku prvku seznamu
+    // M203 zpřístupnění posledního prvku prvku seznamu
     T zpristupniPosledni() throws Exception;
-    // zpřístupnění následníha aktuálního prvku
-    //T zpristupniNaslednika() throws Exception;
-    // zpřístupnění předchůdce aktuálního prvku
-    //T zpristupniPredchudce() throws Exception;
+    // M204 zpřístupnění následníha aktuálního prvku
+    T zpristupniNaslednika() throws Exception;
+    // M205 zpřístupnění předchůdce aktuálního prvku
+    T zpristupniPredchudce() throws Exception;
 
-    // odebrání aktuálního prvku ze seznamu, aktuální prvek je nastaven na první prvek seznamu
-    //T odeberAktualni();
-    // odebrání prvního prvku ze seznamu
-    //T odeberPrvni();
-    // odebrání posledního prvku ze seznamu
-    //T odeberPosledno();
+    // M301 odebrání aktuálního prvku ze seznamu, aktuální prvek je nastaven na první prvek seznamu
+    T odeberAktualni() throws Exception;
+    // M302 odebrání prvního prvku ze seznamu
+    T odeberPrvni() throws Exception;
+    // M303 odebrání posledního prvku ze seznamu
+    T odeberPosledni() throws Exception;
     // odebrání následníka aktuálního prvku ze seznamu
     //T odeberNaslednika();
     // odebrani předchůdce aktuálního prvku ze seznamu
     //T odeberPredchudce();
 
-    // vytvoření iterátoru
+    // M401 vytvoření iterátoru
     Iterator<T> iterator();
 }

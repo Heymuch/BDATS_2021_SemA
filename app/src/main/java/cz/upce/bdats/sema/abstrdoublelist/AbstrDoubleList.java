@@ -2,6 +2,7 @@ package cz.upce.bdats.sema.abstrdoublelist;
 
 import java.util.Objects;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
     // Vnitřní třídy
@@ -23,11 +24,38 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         }
     }
 
+    private class ListIterator implements Iterator {
+        // Atributy
+        private Prvek aktualni;
+        private Prvek posledni;
+
+        // Konstruktor
+        private ListIterator(Prvek prvni, Prvek posledni) {
+            this.aktualni = prvni;
+            this.posledni = posledni;
+        }
+
+        // Metody
+        @Override
+        public boolean hasNext() {
+            return (Objects.nonNull(aktualni));
+        }
+
+        @Override
+        public T next() throws NoSuchElementException {
+            if (!hasNext()) throw new NoSuchElementException();
+            T data = aktualni.data;
+            aktualni = aktualni.nasledujici;
+            return data;
+        }
+    }
+
     public static class ListException extends Exception {
         // Konstanty
         private static final ListException NENI_AKTUALNI = new ListException("Není nastaven aktuální prvek!");
         private static final ListException NEIMPL = new ListException("Není implementováno!");
         private static final ListException PRAZDNY = new ListException("Seznam je prázdný!");
+        private static final ListException KONEC = new ListException("Konec seznamu!");
 
         // Konstruktor
         private ListException(String zprava) {
@@ -50,36 +78,46 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
     }
 
     // Metody
-    @Override
+    @Override // M001
     public void zrus() {
         aktualni = null;
         prvni = null;
         posledni = null;
     }
 
-    @Override
+    @Override // M002
     public boolean jePrazdny() {
         return Objects.isNull(prvni);
     }
 
-    @Override
+    @Override // M101
     public void vlozPrvni(T data) {
-        Prvek p = new Prvek(data, null, prvni);
+        Prvek p = new Prvek(data, null, null);
 
-        if (jePrazdny()) posledni = p;
+        if (jePrazdny()) {
+            posledni = p;
+        } else {
+            p.nasledujici = prvni;
+            prvni.predchozi = p;
+        }
         prvni = p;
     }
 
-    @Override
+    @Override // M102
     public void vlozPosledni(T data) {
-        Prvek p = new Prvek(data, posledni, null);
+        Prvek p = new Prvek(data, null, null);
 
-        if (jePrazdny()) prvni = p;
+        if (jePrazdny()) {
+            prvni = p;
+        } else {
+            p.predchozi = posledni;
+            posledni.nasledujici = p;
+        }
         posledni = p;
     }
 
-    @Override
-    public void vlozNaslednika(T data) throws Exception {
+    @Override // M103
+    public void vlozNaslednika(T data) throws ListException {
         if (Objects.isNull(aktualni)) throw ListException.NENI_AKTUALNI; // pokud není nastaven aktuální prvek
 
         if (aktualni == posledni) { // pokud je aktuální poslední
@@ -88,39 +126,118 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         }
 
         Prvek p = new Prvek(data, aktualni, aktualni.nasledujici);
+        aktualni.nasledujici.predchozi = p;
         aktualni.nasledujici = p;
-        p.nasledujici.predchozi = p;
     }
 
-    @Override
-    public void vlozPredchudce(T data) throws Exception {
-        // TODO
-        throw ListException.NEIMPL;
+    @Override // M104
+    public void vlozPredchudce(T data) throws ListException {
+        if (Objects.isNull(aktualni)) throw ListException.NENI_AKTUALNI;
+
+        if (aktualni == prvni) {
+            vlozPrvni(data);
+            return;
+        }
+
+        Prvek p = new Prvek(data, aktualni.predchozi, aktualni);
+        aktualni.predchozi.nasledujici = p;
+        aktualni.predchozi = p;
     }
 
-    @Override
-    public T zpristupniAktualni() throws Exception {
+    @Override // M201
+    public T zpristupniAktualni() throws ListException {
         if (Objects.isNull(aktualni)) throw ListException.NENI_AKTUALNI; // pokud není nastaven aktuální
 
         return aktualni.data;
     }
 
-    @Override
-    public T zpristupniPrvni() throws Exception {
+    @Override // M202
+    public T zpristupniPrvni() throws ListException {
         if (jePrazdny()) throw ListException.PRAZDNY;
         aktualni = prvni;
         return aktualni.data;
     }
 
-    @Override
-    public T zpristupniPosledni() throws Exception {
+    @Override // M203
+    public T zpristupniPosledni() throws ListException {
         if (jePrazdny()) throw ListException.PRAZDNY;
         aktualni = posledni;
         return aktualni.data;
     }
 
-    @Override
+    @Override // M204
+    public T zpristupniNaslednika() throws ListException {
+        if (jePrazdny()) throw ListException.PRAZDNY;
+        if (aktualni == posledni) throw ListException.KONEC;
+
+        aktualni = aktualni.nasledujici;
+        return aktualni.data;
+    }
+
+    @Override // M205
+    public T zpristupniPredchudce() throws ListException {
+        if (jePrazdny()) throw ListException.PRAZDNY;
+        if (aktualni == prvni) throw ListException.KONEC;
+
+        aktualni = aktualni.predchozi;
+        return aktualni.data;
+    }
+
+    @Override // M301
+    public T odeberAktualni() throws ListException {
+        if (Objects.isNull(aktualni)) throw ListException.NENI_AKTUALNI;
+
+        T data = aktualni.data;
+
+        if (aktualni == prvni) {
+            odeberPrvni();
+        } else if (aktualni == posledni) {
+            odeberPosledni();
+        } else {
+            aktualni.predchozi.nasledujici = aktualni.nasledujici;
+            aktualni.nasledujici.predchozi = aktualni.predchozi;
+        }
+
+        aktualni = null;
+        return data;
+    }
+
+    @Override // M302
+    public T odeberPrvni() throws ListException {
+        if (jePrazdny()) throw ListException.PRAZDNY;
+
+        T data = prvni.data;
+
+        if (prvni == posledni) {
+            zrus();
+        } else {
+            if (prvni == aktualni) aktualni = null;
+            prvni = prvni.nasledujici;
+            prvni.predchozi = null;
+        }
+
+        return data;
+    }
+
+    @Override // M303
+    public T odeberPosledni() throws ListException {
+        if (jePrazdny()) throw ListException.PRAZDNY;
+
+        T data = posledni.data;
+
+        if (posledni == prvni) {
+            zrus();
+        } else {
+            if (posledni == aktualni) aktualni = null;
+            posledni = posledni.predchozi;
+            posledni.nasledujici = null;
+        }
+
+        return data;
+    }
+
+    @Override // M401
     public Iterator<T> iterator() {
-        return null;
+        return new ListIterator(prvni, posledni);
     }
 }
