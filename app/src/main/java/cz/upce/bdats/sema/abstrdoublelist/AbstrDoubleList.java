@@ -236,6 +236,26 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         return data;
     }
 
+    @Override // M304
+    public T odeberNaslednika() throws ListException {
+        if (Objects.isNull(aktualni)) throw ListException.NENI_AKTUALNI;
+        if (aktualni == posledni) throw ListException.KONEC;
+
+        if (aktualni.nasledujici == posledni) return odeberPosledni();
+        T data = aktualni.nasledujici.data;
+        aktualni.nasledujici = aktualni.nasledujici.nasledujici;
+        aktualni.nasledujici.predchozi = aktualni;
+
+        return data;
+    }
+
+    @Override // M305
+    public T odeberPredchudce() throws ListException {
+        if (Objects.isNull(aktualni)) throw ListException.NENI_AKTUALNI;
+        //if (aktualni)
+        return null;
+    }
+
     @Override // M401
     public Iterator<T> iterator() {
         return new ListIterator(prvni, posledni);

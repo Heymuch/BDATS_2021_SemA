@@ -35,10 +35,10 @@ public interface IAbstrDoubleList<T> extends Iterable {
     T odeberPrvni() throws Exception;
     // M303 odebrání posledního prvku ze seznamu
     T odeberPosledni() throws Exception;
-    // odebrání následníka aktuálního prvku ze seznamu
-    //T odeberNaslednika();
-    // odebrani předchůdce aktuálního prvku ze seznamu
-    //T odeberPredchudce();
+    // M304 odebrání následníka aktuálního prvku ze seznamu
+    T odeberNaslednika() throws Exception;
+    // M305 odebrani předchůdce aktuálního prvku ze seznamu
+    T odeberPredchudce() throws Exception;
 
     // M401 vytvoření iterátoru
     Iterator<T> iterator();

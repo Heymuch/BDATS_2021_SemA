@@ -298,11 +298,68 @@ public class AbstrDoubleListTest {
     }
 
     @Test
+    public void odeberNaslednikaTest() throws Exception {
+        IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
+        l.zpristupniPrvni();
+        assertEquals(INT20, l.odeberNaslednika());
+        assertEquals(INT10, l.zpristupniAktualni());
+        assertEquals(INT30, l.zpristupniNaslednika());
+        assertEquals(INT10, l.zpristupniPredchudce());
+    }
+
+    @Test
+    public void odeberNaslednikaPosledniTest() throws Exception {
+        IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
+        l.zpristupniPrvni();
+        l.zpristupniNaslednika();
+        assertEquals(INT30, l.odeberNaslednika());
+        assertEquals(INT20, l.zpristupniAktualni());
+        assertEquals(INT20, l.zpristupniPosledni());
+        assertEquals(INT10, l.zpristupniPredchudce());
+    }
+
+    @Test
+    public void odeberNaslednikaNeniAktualniTest() throws Exception {
+        IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
+        try {
+            l.odeberNaslednika();
+            fail();
+        } catch (AbstrDoubleList.ListException e) {
+            Logger.getGlobal().info(e.getMessage());
+        }
+    }
+
+    @Test
+    public void odeberNaslednikaKonecTest() throws Exception {
+        IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
+        l.zpristupniPosledni();
+        try {
+            l.odeberNaslednika();
+            fail();
+        } catch (AbstrDoubleList.ListException e) {
+            Logger.getGlobal().info(e.getMessage());
+        }
+    }
+
+    @Test
     public void iteratorTest() throws Exception {
         IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
         Iterator<Integer> i = l.iterator();
+        assertTrue(i.hasNext());
         assertEquals(INT10, i.next());
         assertEquals(INT20, i.next());
         assertEquals(INT30, i.next());
+        assertFalse(i.hasNext());
+    }
+
+    @Test
+    public void iteratorPrazdnySeznamTest() throws Exception {
+        Iterator<Integer> i = new AbstrDoubleList<Integer>().iterator();
+        try {
+            i.next();
+            fail();
+        } catch (Exception exc) {
+            Logger.getGlobal().info(exc.getMessage());
+        }
     }
 }
