@@ -252,8 +252,14 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
     @Override // M305
     public T odeberPredchudce() throws ListException {
         if (Objects.isNull(aktualni)) throw ListException.NENI_AKTUALNI;
-        //if (aktualni)
-        return null;
+        if (aktualni == prvni) throw ListException.KONEC;
+
+        if (aktualni.predchozi == prvni) return odeberPrvni();
+        T data = aktualni.predchozi.data;
+        aktualni.predchozi = aktualni.predchozi.predchozi;
+        aktualni.predchozi.nasledujici = aktualni;
+
+        return data;
     }
 
     @Override // M401

@@ -342,6 +342,55 @@ public class AbstrDoubleListTest {
     }
 
     @Test
+    public void odeberPredchudceTest() throws Exception {
+        IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
+        l.zpristupniPosledni();
+        assertEquals(INT20, l.odeberPredchudce());
+        assertEquals(INT30, l.zpristupniAktualni());
+        assertEquals(INT10, l.zpristupniPredchudce());
+        assertEquals(INT30, l.zpristupniNaslednika());
+    }
+
+    @Test
+    public void odeberPredchudcePrvniTest() throws Exception {
+        IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
+        l.zpristupniPrvni();
+        l.zpristupniNaslednika();
+        assertEquals(INT10, l.odeberPredchudce());
+        assertEquals(INT20, l.zpristupniAktualni());
+        assertEquals(INT20, l.zpristupniPrvni());
+        try {
+            l.zpristupniPredchudce();
+            fail();
+        } catch (AbstrDoubleList.ListException e) {
+            Logger.getGlobal().info(e.getMessage());
+        }
+    }
+
+    @Test
+    public void odeberPredchudceNeniAktualniTest() throws Exception {
+        IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
+        try {
+            l.odeberPredchudce();
+            fail();
+        } catch (AbstrDoubleList.ListException e) {
+            Logger.getGlobal().info(e.getMessage());
+        }
+    }
+
+    @Test
+    public void odeberPredchudceKonecTest() throws Exception {
+        IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
+        l.zpristupniPrvni();
+        try {
+            l.odeberPredchudce();
+            fail();
+        } catch (AbstrDoubleList.ListException e) {
+            Logger.getGlobal().info(e.getMessage());
+        }
+    }
+
+    @Test
     public void iteratorTest() throws Exception {
         IAbstrDoubleList<Integer> l = new AbstrDoubleList<>(INT10, INT20, INT30);
         Iterator<Integer> i = l.iterator();
