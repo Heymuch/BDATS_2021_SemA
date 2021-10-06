@@ -1,6 +1,6 @@
 package cz.upce.bdats.sema.autopujcovna;
 
-public enum EnumPozice {
+public enum Pozice {
     // Prvky
     PRVNI("první"),
     POSLEDNI("poslední"),
@@ -12,7 +12,7 @@ public enum EnumPozice {
     private final String nazev;
 
     // Konstruktor
-    private EnumPozice(String nazev) {
+    private Pozice(String nazev) {
         this.nazev = nazev;
     }
 

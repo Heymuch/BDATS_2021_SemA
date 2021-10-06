@@ -3,38 +3,38 @@ package cz.upce.bdats.sema.autopujcovna;
 import java.util.Iterator;
 
 public interface IAutopujcovna {
-    // vloží novou pobočku do seznamu na příslušnou pozici (první, poslední, předchůdce, následník)
-    void vlozPobocku(IPobocka pobocka, EnumPozice pozice);
+    // M101 vloží novou pobočku do seznamu na příslušnou pozici (první, poslední, předchůdce, následník)
+    void vlozPobocku(IPobocka pobocka, Pozice pozice) throws Excpetion;
 
     // zpřístupní pobočku z požadované pozice (první, poslední, předchůdce, následník, aktuální)
-    IPobocka zpristupniPobocku(EnumPozice pozice);
+    IPobocka zpristupniPobocku(Pozice pozice) throws Exception;
 
     // odebere pobočku z požadované pozice (první, poslední, předchůdce, následník, aktuální)
-    IPobocka odeberPobocku(EnumPozice pozice);
+    IPobocka odeberPobocku(Pozice pozice) throws Exception;
 
     // vloží nové auto do seznamu aktuální pobocky na příslušnou pozici
-    void vlozAuto(Auto auto, EnumPozice pozice);
+    void vlozAuto(Auto auto, Pozice pozice) throws Exception;
 
     // zpřístupní auto z požadované pozice aktuální pobočky (první, poslední, předchůdce, následník, aktuální)
-    Auto zpristupniAuto(EnumPozice pozice);
+    Auto zpristupniAuto(Pozice pozice) throws Exception;
 
     // odebere auto z požadované pozice (první, poslední, předchůdce, následník, aktuální)
-    Auto odeberAuto(EnumPozice pozice);
+    Auto odeberAuto(Pozice pozice) throws Exception;
 
     // odebere auto z požadované pozice aktuální pobočky a vloží ho do seznamu výpůjček (první, poslední, následník, předchůdce, aktuální)
-    Auto vypujcAuto(EnumPozice pozice);
+    Auto vypujcAuto(Pozice pozice) throws Exception;
 
     // odebere auto z požadované pozice výpůjček a vloží ho do seznamu aktuální pobočky (první, poslední, předchůdce, následník, aktuální)
-    Auto vratAuto(EnumPozice pozice);
+    Auto vratAuto(Pozice pozice) throws Exception;
 
     // zpřístupní auto z požadované pozice ze seznamu vypůjčených aut (první, poslední, předchůdce, následník, aktuální)
-    Auto zpristupniVypujceneAuto(EnumPozice pozice);
+    Auto zpristupniVypujceneAuto(Pozice pozice) throws Exception;
 
     // vrací požadovaný iterátor poboček/automobilů/vypůjčených automobilů
     Iterator iterator(IteratorTyp typ);
 
     // zruší všechna auta v aktuální pobočce
-    void zrusPobocku();
+    void zrusPobocku() throws Exception;
 
     // zruší všechny pobočky
     void zrus();
