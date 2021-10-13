@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public interface IAutopujcovna {
     // M101 vloží novou pobočku do seznamu na příslušnou pozici (první, poslední, předchůdce, následník)
-    void vlozPobocku(IPobocka pobocka, Pozice pozice) throws Excpetion;
+    void vlozPobocku(IPobocka pobocka, Pozice pozice) throws Exception;
 
     // zpřístupní pobočku z požadované pozice (první, poslední, předchůdce, následník, aktuální)
     IPobocka zpristupniPobocku(Pozice pozice) throws Exception;
@@ -31,7 +31,7 @@ public interface IAutopujcovna {
     Auto zpristupniVypujceneAuto(Pozice pozice) throws Exception;
 
     // vrací požadovaný iterátor poboček/automobilů/vypůjčených automobilů
-    Iterator iterator(IteratorTyp typ);
+    Iterator iterator(IteratorTyp typ) throws Exception;
 
     // zruší všechna auta v aktuální pobočce
     void zrusPobocku() throws Exception;
