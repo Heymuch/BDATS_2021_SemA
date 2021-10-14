@@ -162,7 +162,7 @@ public class Autopujcovna implements IAutopujcovna {
             switch (pozice) {
                 case PRVNI: return vypujcene.zpristupniPrvni();
                 case POSLEDNI: return vypujcene.zpristupniPosledni();
-                case NASLEDNI: return vypujcene.zpristupniNaslednika();
+                case NASLEDNIK: return vypujcene.zpristupniNaslednika();
                 case PREDCHUDCE: return vypujcene.zpristupniPredchudce();
                 case AKTUALNI: return vypujcene.zpristupniAktualni();
                 default: throw AutopujcovnaException.POZICE;

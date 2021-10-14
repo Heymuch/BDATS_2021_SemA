@@ -19,6 +19,7 @@ public class AutopujcovnaTest {
     private static final IPobocka P2 = new Pobocka("P2", A3, A4);
     private static final IPobocka P3 = new Pobocka("P3", A5, A6);
     private static final IPobocka P4 = new Pobocka("P4", A1, A4);
+    private static final IPobocka P5 = new Pobocka("P5");
 
     @Test
     public void vlozPobockuTest() throws Exception {
@@ -97,6 +98,40 @@ public class AutopujcovnaTest {
         try {
             a.odeberPobocku(null);
             fail();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+    @Test
+    public void vlozAutoTest() throws Exception {
+        IAutopujcovna a = new Autopujcovna("Test", P5, P2, P3);
+
+        a.zpristupniPobocku(Pozice.PRVNI);
+        a.vlozAuto(A1, Pozice.PRVNI);
+        a.vlozAuto(A2, Pozice.POSLEDNI);
+        a.zpristupniAuto(Pozice.PRVNI);
+        a.vlozAuto(A3, Pozice.NASLEDNIK);
+        a.vlozAuto(A4, Pozice.PREDCHUDCE);
+
+        Iterator<Auto> i = a.zpristupniPobocku(Pozice.AKTUALNI).iterator();
+        assertEquals(A4, i.next());
+        assertEquals(A1, i.next());
+        assertEquals(A3, i.next());
+        assertEquals(A2, i.next());
+    }
+
+    @Test
+    public void vlozAutoNullTest() throws Exception {
+        try {
+            IAutopujcovna a = new Autopujcovna("Test", P1, P2, P3);
+            a.zpristupniPobocku(Pozice.PRVNI);
+            a.vlozAuto(null, Pozice.PRVNI);
+            fail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 }
