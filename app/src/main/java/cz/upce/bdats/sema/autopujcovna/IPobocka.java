@@ -2,7 +2,7 @@ package cz.upce.bdats.sema.autopujcovna;
 
 import java.util.Iterator;
 
-public interface IPobocka {
+public interface IPobocka extends Iterable {
     // M101 vloží nové auto do seznamu na příslušnou pozici (první, poslední, předchůdce, následník)
     void vlozAuto(Auto auto, Pozice pozice) throws Exception;
 

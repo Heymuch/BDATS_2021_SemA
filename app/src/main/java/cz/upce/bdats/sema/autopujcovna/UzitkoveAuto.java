@@ -6,7 +6,11 @@ public class UzitkoveAuto extends Auto {
 
     // Kontruktor
     public UzitkoveAuto(String spz, float nosnost) {
-        super(Typ.UZITKOVY, spz);
+        this(spz, 0.0f, 0, nosnost);
+    }
+
+    public UzitkoveAuto(String spz, float stavKm, int pocetVypujceni, float nosnost) {
+        super(Typ.UZITKOVY, spz, stavKm, pocetVypujceni);
         this.nosnost = nosnost;
     }
 

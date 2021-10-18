@@ -6,7 +6,7 @@ import java.util.Iterator;
 import cz.upce.bdats.sema.abstrdoublelist.IAbstrDoubleList;
 import cz.upce.bdats.sema.abstrdoublelist.AbstrDoubleList;
 
-public class Pobocka implements IPobocka, Iterable {
+public class Pobocka implements IPobocka {
     // Vnitřní třídy
     public static class PobockaException extends Exception {
         // Konstanty

@@ -6,7 +6,11 @@ public class OsobniAuto extends Auto {
 
     // Konstruktor
     public OsobniAuto(String spz, Barva barva) {
-        super(Typ.OSOBNI, spz);
+        this(spz, 0.0f, 0, barva);
+    }
+
+    public OsobniAuto(String spz, float stavKm, int pocetVypujceni, Barva barva) {
+        super(Typ.OSOBNI, spz, stavKm, pocetVypujceni);
         this.barva = barva;
     }
 

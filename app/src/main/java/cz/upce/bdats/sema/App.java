@@ -21,12 +21,14 @@ public class App extends Application {
 
     private final IAutopujcovna autopujcovna = new Autopujcovna("Autopujcovna u Skákajícho poníka");
 
-    private final Label lbTitle = new Label();
+    private final Label lbTitle = new Label("Autopujcovna u Skákajívího poníka");
     private final ListView<IPobocka> lvPobocky = new ListView<>();
     private final ListView<Auto> lvAutaPobocky = new ListView<>();
     private final ListView<Auto> lvAutaVypujcene = new ListView<>();
 
     private final HBox hb1 = new HBox();
+    private final HBox hb2 = new HBox();
+    private final HBox hb3 = new HBox();
     private final VBox vb1 = new VBox();
     private final VBox vb2 = new VBox();
     private final VBox vb3 = new VBox();
@@ -38,8 +40,6 @@ public class App extends Application {
 
     @Override
     public void init() {
-        lbTitle.setText("Autopujcovna u Skákajícího poníka");
-
         HBox.setHgrow(lvPobocky, Priority.ALWAYS);
         HBox.setHgrow(lvAutaPobocky, Priority.ALWAYS);
         HBox.setHgrow(lvAutaVypujcene, Priority.ALWAYS);
@@ -48,6 +48,7 @@ public class App extends Application {
         hb1.getChildren().addAll(lvPobocky, lvAutaPobocky, lvAutaVypujcene);
 
         root.setTop(lbTitle);
+        root.setBottom(hb2);
         root.setCenter(hb1);
     }
 

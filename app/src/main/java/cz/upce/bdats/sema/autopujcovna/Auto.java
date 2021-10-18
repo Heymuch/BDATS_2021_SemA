@@ -1,6 +1,8 @@
 package cz.upce.bdats.sema.autopujcovna;
 
-public abstract class Auto {
+import java.io.Serializable;
+
+public abstract class Auto implements Serializable {
     // Atributy
     private final Typ typ;
     private final String spz;
@@ -9,8 +11,14 @@ public abstract class Auto {
 
     // Konstruktor
     public Auto(Typ typ, String spz) {
+        this(typ, spz, 0.0f, 0);
+    }
+
+    public Auto(Typ typ, String spz, float stavKm, int pocetVypujceni) {
         this.typ = typ;
         this.spz = spz;
+        this.stavKm = stavKm;
+        this.pocetVypujceni = pocetVypujceni;
     }
 
     // Metody
