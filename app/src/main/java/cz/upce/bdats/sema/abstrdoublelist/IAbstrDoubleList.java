@@ -7,6 +7,8 @@ public interface IAbstrDoubleList<T> extends Iterable {
     void zrus();
     // M002 test naplněnosti seznamu
     boolean jePrazdny();
+    // M003 počet prvků v seznamu
+    int velikost();
 
     // M101 vložení prvku do seznamu na první místo
     void vlozPrvni(T data);

@@ -38,4 +38,12 @@ public interface IAutopujcovna {
 
     // zruší všechny pobočky
     void zrus();
+
+    // počet poboček
+    int pocetPobocek();
+
+    // počet vypůčených aut
+    int pocetVypujcenychAut();
+
+    String getNazev();
 }

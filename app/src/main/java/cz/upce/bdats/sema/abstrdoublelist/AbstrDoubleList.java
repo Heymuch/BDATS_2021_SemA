@@ -67,6 +67,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
     Prvek aktualni;
     Prvek prvni;
     Prvek posledni;
+    int pocet;
 
     // Konstruktory
     public AbstrDoubleList() {
@@ -90,6 +91,11 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         return Objects.isNull(prvni);
     }
 
+    @Override // M003
+    public int velikost() {
+        return pocet;
+    }
+
     @Override // M101
     public void vlozPrvni(T data) {
         Prvek p = new Prvek(data, null, null);
@@ -101,6 +107,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
             prvni.predchozi = p;
         }
         prvni = p;
+        pocet++;
     }
 
     @Override // M102
@@ -114,6 +121,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
             posledni.nasledujici = p;
         }
         posledni = p;
+        pocet++;
     }
 
     @Override // M103
@@ -128,6 +136,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         Prvek p = new Prvek(data, aktualni, aktualni.nasledujici);
         aktualni.nasledujici.predchozi = p;
         aktualni.nasledujici = p;
+        pocet++;
     }
 
     @Override // M104
@@ -142,6 +151,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         Prvek p = new Prvek(data, aktualni.predchozi, aktualni);
         aktualni.predchozi.nasledujici = p;
         aktualni.predchozi = p;
+        pocet++;
     }
 
     @Override // M201
@@ -199,6 +209,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         }
 
         aktualni = null;
+        pocet--;
         return data;
     }
 
@@ -216,6 +227,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
             prvni.predchozi = null;
         }
 
+        pocet--;
         return data;
     }
 
@@ -233,6 +245,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
             posledni.nasledujici = null;
         }
 
+        pocet--;
         return data;
     }
 
@@ -246,6 +259,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         aktualni.nasledujici = aktualni.nasledujici.nasledujici;
         aktualni.nasledujici.predchozi = aktualni;
 
+        pocet--;
         return data;
     }
 
@@ -259,6 +273,7 @@ public class AbstrDoubleList<T> implements IAbstrDoubleList<T> {
         aktualni.predchozi = aktualni.predchozi.predchozi;
         aktualni.predchozi.nasledujici = aktualni;
 
+        pocet--;
         return data;
     }
 

@@ -43,6 +43,7 @@ public class Autopujcovna implements IAutopujcovna {
     }
 
     // M101 vloží novou pobočku do seznamu na příslušnou pozici (první, poslední, předchůdce, následník)
+    @Override
     public void vlozPobocku(IPobocka pobocka, Pozice pozice) throws AutopujcovnaException {
         try {
             if (Objects.isNull(pobocka)) throw AutopujcovnaException.POBOCKA_NULL;
@@ -200,12 +201,23 @@ public class Autopujcovna implements IAutopujcovna {
         pobocky.zrus();
     }
 
+    @Override
+    public int pocetPobocek() {
+        return pobocky.velikost();
+    }
+
+    @Override
+    public int pocetVypujcenychAut() {
+        return vypujcene.velikost();
+    }
+
+    @Override
     public String getNazev() {
         return nazev;
     }
 
     @Override
     public String toString() {
-        return nazev;
+        return String.format("Autopůjčovna %s", nazev);
     }
 }

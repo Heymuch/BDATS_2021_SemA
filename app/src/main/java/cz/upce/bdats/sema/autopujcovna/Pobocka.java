@@ -39,6 +39,11 @@ public class Pobocka implements IPobocka {
     }
 
     // Metody
+    @Override
+    public String getNazev() {
+        return nazev;
+    }
+
     @Override // M101
     public void vlozAuto(Auto auto, Pozice pozice) throws PobockaException {
         try {
@@ -99,7 +104,12 @@ public class Pobocka implements IPobocka {
     }
 
     @Override
+    public int pocetAut() {
+        return seznam.velikost();
+    }
+
+    @Override
     public String toString() {
-        return nazev;
+        return String.format("Pobočka %s", nazev);
     }
 }
