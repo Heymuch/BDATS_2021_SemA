@@ -61,6 +61,7 @@ public class Autopujcovna implements IAutopujcovna {
     }
 
     // M102 zpřístupní pobočku z požadované pozice (první, poslední, předchůdce, následník, aktuální)
+    @Override
     public IPobocka zpristupniPobocku(Pozice pozice) throws AutopujcovnaException {
         try {
             if (Objects.isNull(pozice)) throw AutopujcovnaException.POZICE_NULL;
@@ -78,6 +79,7 @@ public class Autopujcovna implements IAutopujcovna {
     }
 
     // odebere pobočku z požadované pozice (první, poslední, předchůdce, následník, aktuální)
+    @Override
     public IPobocka odeberPobocku(Pozice pozice) throws AutopujcovnaException {
         try {
             if (Objects.isNull(pozice)) throw AutopujcovnaException.POZICE_NULL;
@@ -120,13 +122,14 @@ public class Autopujcovna implements IAutopujcovna {
             throw new AutopujcovnaException("Chyba při odebírání auta z aktualní pobočky!", e);
         }
     }
-
     // odebere auto z požadované pozice aktuální pobočky a vloží ho do seznamu výpůjček (první, poslední, následník, předchůdce, aktuální)
     public Auto vypujcAuto(Pozice pozice) throws AutopujcovnaException {
         try {
             Auto a = pobocky.zpristupniAktualni().odeberAuto(pozice);
+            a.setPocetVypujceni(a.getPocetVypujceni() + 1);
             vypujcene.vlozPosledni(a);
             return a;
+
         } catch (Exception e) {
             throw new AutopujcovnaException("Chyba při vypůjčování auta z pobočky!", e);
         }
@@ -199,6 +202,7 @@ public class Autopujcovna implements IAutopujcovna {
     // zruší všechny pobočky
     public void zrus() {
         pobocky.zrus();
+        vypujcene.zrus();
     }
 
     @Override
@@ -209,6 +213,12 @@ public class Autopujcovna implements IAutopujcovna {
     @Override
     public int pocetVypujcenychAut() {
         return vypujcene.velikost();
+    }
+
+    @Override
+    public void vlozVypujceneAuto(Auto a) throws AutopujcovnaException {
+        if (Objects.isNull(a)) throw AutopujcovnaException.AUTO_NULL;
+        vypujcene.vlozPosledni(a);
     }
 
     @Override

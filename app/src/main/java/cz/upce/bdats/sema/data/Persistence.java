@@ -19,6 +19,7 @@ import cz.upce.bdats.sema.autopujcovna.IPobocka;
 import cz.upce.bdats.sema.autopujcovna.Pobocka;
 import cz.upce.bdats.sema.autopujcovna.Pozice;
 import cz.upce.bdats.sema.autopujcovna.IAutopujcovna;
+import cz.upce.bdats.sema.autopujcovna.Autopujcovna;
 import cz.upce.bdats.sema.autopujcovna.IteratorTyp;
 
 public class Persistence {
@@ -85,9 +86,10 @@ public class Persistence {
         public static IPobocka fromCSV(String[] csv) throws Exception {
             String[] frags = csv[0].split(";");
             String nazev = frags[0];
+            int pocetAut = Integer.valueOf(frags[1]);
 
             IPobocka p = new Pobocka(nazev);
-            for (int i = 1; i < csv.length; i++)
+            for (int i = 1; i <= pocetAut; i++)
                 p.vlozAuto(Persistence.Automobily.fromCSV(csv[i]), Pozice.POSLEDNI);
             return p;
         }
@@ -108,8 +110,25 @@ public class Persistence {
             return l.toArray(new String[l.size()]);
         }
 
-        public static IAutopujcovna fromCSV(String[] csv) {
-            return null;
+        public static IAutopujcovna fromCSV(String[] csv) throws Exception {
+            String[] frags = csv[0].split(";");
+            String nazev = frags[0];
+            int pocetVypujcenychAut = Integer.valueOf(frags[1]);
+            int pocetPobocek = Integer.valueOf(frags[2]);
+
+            IAutopujcovna a = new Autopujcovna(nazev);
+
+            for (int i = 1; i <= pocetVypujcenychAut; i++)
+                a.vlozVypujceneAuto(Persistence.Automobily.fromCSV(csv[i]));
+
+            csv = Arrays.copyOfRange(csv, pocetVypujcenychAut + 1, csv.length);
+            for (int i = 0; i < pocetPobocek; i++) {
+                IPobocka p = Persistence.Pobocky.fromCSV(csv);
+                a.vlozPobocku(p, Pozice.POSLEDNI);
+                csv = Arrays.copyOfRange(csv, p.pocetAut() + 1, csv.length);
+            }
+
+            return a;
         }
     }
 }

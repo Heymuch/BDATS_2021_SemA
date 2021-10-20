@@ -67,8 +67,10 @@ public class Generator {
         return String.format("%s%d", n[RNG.nextInt(n.length)], RNG.nextInt(9) + 1);
     }
 
-    public static IAutopujcovna genAutopujcovna(int pocetPobocek, int pocetAut) throws Exception {
+    public static IAutopujcovna genAutopujcovna(int pocetPobocek, int pocetAut, int pocetVypujcenychAut) throws Exception {
         IAutopujcovna a = new Autopujcovna(genAutopujcovnaNazev());
+        for (int i = 0; i < pocetVypujcenychAut; i++)
+            a.vlozVypujceneAuto(genAuto());
         for (int i = 0; i < pocetPobocek; i++)
             a.vlozPobocku(genPobocka(pocetAut), Pozice.POSLEDNI);
         return a;

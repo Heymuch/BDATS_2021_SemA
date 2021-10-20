@@ -40,7 +40,7 @@ public class GeneratorTest {
 
     @Test
     public void genAutopujcovnaTest() throws Exception {
-        IAutopujcovna a = Generator.genAutopujcovna(3, 5);
+        IAutopujcovna a = Generator.genAutopujcovna(3, 5, 0);
         System.out.println(a);
         Iterator<IPobocka> pobocky = a.iterator(IteratorTyp.POBOCKY);
         while(pobocky.hasNext()) {

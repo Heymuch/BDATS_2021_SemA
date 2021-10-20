@@ -46,4 +46,6 @@ public interface IAutopujcovna {
     int pocetVypujcenychAut();
 
     String getNazev();
+
+    void vlozVypujceneAuto(Auto auto) throws Exception;
 }

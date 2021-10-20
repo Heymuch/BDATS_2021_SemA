@@ -11,6 +11,8 @@ import cz.upce.bdats.sema.autopujcovna.OsobniAuto;
 import cz.upce.bdats.sema.autopujcovna.UzitkoveAuto;
 import cz.upce.bdats.sema.autopujcovna.Barva;
 import cz.upce.bdats.sema.autopujcovna.IPobocka;
+import cz.upce.bdats.sema.autopujcovna.IteratorTyp;
+import cz.upce.bdats.sema.autopujcovna.IAutopujcovna;
 
 public class PersistenceTest {
     private static final Auto A1 = new OsobniAuto("1S1 1111", 1.0f, 1, Barva.CERVENA);
@@ -89,9 +91,31 @@ public class PersistenceTest {
 
     @Test
     public void autopujcovnaToCSVTest() throws Exception {
-        String[] csv = Persistence.Autopujcovny.toCSV(Generator.genAutopujcovna(3, 3));
+        String[] csv = Persistence.Autopujcovny.toCSV(Generator.genAutopujcovna(3, 3, 3));
         for (String s : csv)
             System.out.println(s);
+        System.out.println();
+    }
+
+    @Test
+    public void autopujcovnaFromCSVTest() throws Exception {
+        String[] csv = Persistence.Autopujcovny.toCSV(Generator.genAutopujcovna(3, 3, 3));
+        IAutopujcovna a = Persistence.Autopujcovny.fromCSV(csv);
+        System.out.println(a);
+
+        Iterator<Auto> v = a.iterator(IteratorTyp.VYPUJCENE_AUTOMOBILY);
+        while (v.hasNext())
+            System.out.println(v.next());
+
+        Iterator<IPobocka> p = a.iterator(IteratorTyp.POBOCKY);
+        while (p.hasNext()) {
+            IPobocka pob = p.next();
+            System.out.println(pob);
+            Iterator<Auto> i = pob.iterator();
+            while (i.hasNext()) {
+                System.out.println(i.next());
+            }
+        }
         System.out.println();
     }
 
